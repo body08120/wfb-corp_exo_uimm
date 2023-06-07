@@ -131,7 +131,7 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </p>
             <div id="share-buttons">
                 <span class="mx-auto italic">
-                    <?= $user_firstname, " " . $user_firstname . " - " . $date ?>
+                    <?= $user_firstname, " " . $user_name . " - " . $date ?>
                 </span>
                 <span>Partager</span>
                 <!-- Facebook -->
