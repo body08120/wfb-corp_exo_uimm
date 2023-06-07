@@ -76,6 +76,7 @@ $articles_ref = $stmt_ref->fetchAll(PDO::FETCH_ASSOC);
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+    <link rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.css">
 
     <!--CARDS HEADER -->
     <link rel="stylesheet" href="assets/css/cards.css">
