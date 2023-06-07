@@ -37,7 +37,7 @@ class Connect {
 // Constantes d'environnement définissant les informations de connexion à la base de données
 define("DBHOST", "localhost");
 define("DBUSER", "root");
-define("DBPASS", "root");
+define("DBPASS", "");
 define("DBNAME", "wfbcorp");
 
 // Instanciation de la classe Connect pour établir la connexion à la base de données

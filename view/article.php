@@ -148,7 +148,7 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div id="all-section-article" class="mt-4 w-full">
                 <h2 class="m-10 no-italic">Ces articles pourraient vous intéresser</h2>
 
-                <div id="cards" style="margin: auto;">
+                <div class="cards" style="margin: auto;">
 
                     <?php foreach ($articles as $article): ?>
                         <a href="index.php?action=article&id_article=<?= $article['id_article'] ?>">
