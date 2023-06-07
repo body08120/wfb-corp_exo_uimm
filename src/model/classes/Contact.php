@@ -75,3 +75,12 @@ $form = new ContactForm();
 $form->processForm();
 
 ?>
+<!-- 
+
+$phpmailer = new PHPMailer();
+$phpmailer->isSMTP();
+$phpmailer->Host = 'sandbox.smtp.mailtrap.io';
+$phpmailer->SMTPAuth = true;
+$phpmailer->Port = 2525;
+$phpmailer->Username = '2f919208b72258';
+$phpmailer->Password = '3d346c1ee66d72'; -->

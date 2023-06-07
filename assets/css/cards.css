@@ -10,7 +10,7 @@
   max-width: 1400px;
   width: 100%;
   margin: auto;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .cards:hover > .card::after {
