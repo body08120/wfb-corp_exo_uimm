@@ -26,6 +26,8 @@ class Article
 
     private int $id_user;
 
+    private string $image;
+
     public function __construct()
     {
 
@@ -149,6 +151,17 @@ class Article
     public function setIdUser(int $id_user): Article
     {
         $this->id_user = $id_user;
+        return $this;
+    }
+
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): Article
+    {
+        $this->image = $image;
         return $this;
     }
 }
