@@ -90,7 +90,7 @@ $articlesRef = $articleRepository->getArticlesByCategory($ref);
                     <div class="cards" style="margin: auto;">
                         <?php foreach ($articles as $article): ?>
                             <a href="index.php?action=article&id_article=<?= $article->getIdArticle(); ?>">
-                                <div class="card text-justify tracking-widest">
+                                <div class="card text-justify lg:tracking-wider">
                                     <div class="card-content">
                                         <div class="card-image">
                                             <img src="<?= $article->getImage(); ?>" alt="Image de fond"
@@ -102,7 +102,7 @@ $articlesRef = $articleRepository->getArticlesByCategory($ref);
                                                     <h3 class="category_articles">
                                                         <?= $article->getTitle(); ?>
                                                     </h3>
-                                                    <h4>
+                                                    <h4 class="hidden lg:block">
                                                         <?= substr($article->getEnunciate(), 0, 100) . '...'; ?>
                                                     </h4>
                                                 </div>
