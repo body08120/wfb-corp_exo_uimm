@@ -64,6 +64,62 @@ p::first-letter{
   padding: 10px;
 }
 
+:root {
+  --border: rgb(3, 169, 244);
+  
+  --g1: rgb(140, 114, 132);
+  --g2: rgb(236, 64, 122);
+  --g3: rgb(112, 22, 60);
+}
+
+.button-twitch{
+  border: 0.5vmin solid var(--border);
+  cursor: pointer;
+  position: relative;
+  width: 10%;
+}
+
+.button-twitch:hover:before {
+  background-position: 100% 100%;
+  transform: scale(1.08, 1.03);
+}
+
+.button-twitch:hover > .button-twitch {
+  background-position: -10% 0%;
+}
+
+.button-twitch:hover > .button-twitch-icon {
+  color: white; 
+}
+
+.button-twitch:hover > .button-twitch-content > .button-twitch-subtitle > .button-twitch-subtitle-word {  
+  opacity: 1;
+  transform: translateY(0%);
+  transition: opacity 0ms, transform 200ms cubic-bezier(.90, .06, .15, .90);
+}
+
+.button-twitch:before {
+  background: linear-gradient(
+    130deg, 
+    transparent 0% 33%, 
+    var(--g1) 66%, 
+    var(--g2) 83.5%, 
+    var(--g3) 100%
+  );
+  background-position: 0% 0%;
+  background-size: 300% 300%;
+  content: "";
+  height: 100%;
+  left: 0px;
+  pointer-events: none;
+  position: absolute;
+  top: 0px;
+  transition: background-position 350ms ease, transform 350ms ease;
+  width: 100%;
+  z-index: 1;
+  border-radius: 4px;
+}
+
 /* ///////////// Media query ////////////////
 
 @media only screen and (max-width: 650px) {
