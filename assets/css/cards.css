@@ -116,12 +116,14 @@ i {
   align-items: flex-start;
   display: flex;
   gap: 10px;
+  margin: auto;
 }
 
 .card-info > i {  
   font-size: 1em;
   height: 20px;
   line-height: 20px;
+  
 }
 
 .card-info-title > h3 {

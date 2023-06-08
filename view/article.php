@@ -118,11 +118,8 @@ $articles = $articleRepository->getArticles(3);
                                         <div class="card-info">
                                             <div class="card-info-title">
                                                 <h3 class="category_article">
-                                                    <?= $article->getCategoryArticle(); ?>
+                                                <?= $article->getTitle(); ?>
                                                 </h3>
-                                                <h4>
-                                                    <?= $article->getTitle(); ?>
-                                                </h4>
                                             </div>
                                         </div>
                                     </div>
