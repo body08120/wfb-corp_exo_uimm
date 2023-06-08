@@ -6,9 +6,9 @@ $dev = 1;
 $design = 2;
 $ref = 3;
 
-$arcticlesDev = $articleRepository->getArticlesByCategory($dev);
-$arcticlesDesign = $articleRepository->getArticlesByCategory($design);
-$arcticlesRef = $articleRepository->getArticlesByCategory($ref);
+$arcticlesDev = $articleRepository->getArticlesByCategory($dev, 2);
+$arcticlesDesign = $articleRepository->getArticlesByCategory($design, 2);
+$arcticlesRef = $articleRepository->getArticlesByCategory($ref, 2);
 ?>
 
 <!DOCTYPE html>
@@ -188,21 +188,18 @@ $arcticlesRef = $articleRepository->getArticlesByCategory($ref);
 
                 <!-- UNE CARD1 -->
                 <?php foreach ($arcticlesDev as $cardDev): ?>
-                            <?php
-                            $enunciate = $cardDev['enunciate'];
-                            $title = $cardDev['title']; ?>
 
                               <div class="relative max-w-sm border border-gray-700 rounded-lg shadow hidden 2xl:block 2xl:mx-2">
-                                <img src="<?= $cardDev['image_head']; ?>" alt="Image de fond"
+                                <img src="<?= $cardDev->getImage(); ?>" alt="Image de fond"
                                   class="absolute inset-0 w-full h-full object-cover filter blur" style="filter: blur(5px);" />
                                 <div class="relative p-5 hover:bg-primary hover:bg-opacity-80">
                                     <h5 class="mb-2 text-lg font-bold tracking-tight text-pink-800">
-                                      <?= $title // TITRE ?> 
+                                      <?= $cardDev->getTitle(); // TITRE ?> 
                                     </h5>
                                   <p class="mb-3 font-normal text-sm text-blanc">
-                                    <?= substr($enunciate, 0, 50) . '...'; // ENONCER ?>
+                                    <?= substr($cardDev->getEnunciate(), 0, 50) . '...'; // ENONCER ?>
                                   </p>
-                                  <a href="index.php?action=article&id_article=<?= $cardDev['id_article']; ?>"
+                                  <a href="index.php?action=article&id_article=<?= $cardDev->getIdArticle(); ?>"
                                     class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#70163C] rounded-lg hover:bg-[#8C7287] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     Découvrir
                                     <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
@@ -263,22 +260,19 @@ $arcticlesRef = $articleRepository->getArticlesByCategory($ref);
 
                 <!-- UNE CARD1 -->
                 <?php foreach ($arcticlesRef as $cardRef): ?>
-                            <?php
-                            $enunciate = $cardRef['enunciate'];
-                            $title = $cardRef['title']; ?>
 
                       <div class="relative max-w-sm border border-gray-700 rounded-lg shadow hidden 2xl:block 2xl:mx-2">
-                        <img src="<?= $cardRef['image_head']; ?>" alt="Image de fond"
+                        <img src="<?= $cardRef->getImage(); ?>" alt="Image de fond"
                           class="absolute inset-0 w-full h-full object-cover filter blur" style="filter: blur(5px);" />
                         <div class="relative p-5 hover:bg-primary hover:bg-opacity-80">
                             <h5 class="mb-2 text-lg font-bold tracking-tight text-pink-800">
-                              <?= $title; ?>
+                              <?= $cardRef->getTitle(); ?>
                             </h5>
                           </a>
                           <p class="mb-3 font-normal text-sm text-blanc">
-                            <?= $enunciate; ?>
+                            <?= $cardRef->getEnunciate(); ?>
                           </p>
-                          <a href="index.php?action=article&id_article=<?= $cardRef['id_article']; ?>"
+                          <a href="index.php?action=article&id_article=<?= $cardRef->getIdArticle(); ?>"
                             class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#70163C] rounded-lg hover:bg-[#8C7287] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             Découvrir
                             <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
@@ -338,22 +332,19 @@ $arcticlesRef = $articleRepository->getArticlesByCategory($ref);
 
                 <!-- UNE CARD1 -->
                 <?php foreach ($arcticlesDesign as $cardDes): ?>
-                            <?php
-                            $enunciate = $cardDes['enunciate'];
-                            $title = $cardDes['title']; ?>
 
                     <div class="relative max-w-sm border border-gray-700 rounded-lg shadow hidden 2xl:block 2xl:mx-2">
-                      <img src="<?= $cardDes['image_head']; ?>" alt="Image de fond"
+                      <img src="<?= $cardDes->getImage(); ?>" alt="Image de fond"
                         class="absolute inset-0 w-full h-full object-cover filter blur" style="filter: blur(5px);" />
                       <div class="relative p-5 hover:bg-primary hover:bg-opacity-80">
                           <h5 class="mb-2 text-lg font-bold tracking-tight text-pink-800">
-                            <?= $title ?>
+                            <?= $cardDes->getTitle(); ?>
                           </h5>
                         </a>
                         <p class="mb-3 font-normal text-sm text-blanc">
-                          <?= $enunciate; ?>
+                          <?= $cardDes->getEnunciate(); ?>
                         </p>
-                        <a href="index.php?action=article&id_article=<?= $cardDes['id_article']; ?>"
+                        <a href="index.php?action=article&id_article=<?= $cardDes->getIdArticle(); ?>"
                           class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#70163C] rounded-lg hover:bg-[#8C7287] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                           Découvrir
                           <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
