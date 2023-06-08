@@ -3,19 +3,20 @@ require_once('Connect.php');
 
 class User
 {
-    private $id_user;
-    private $name;
-    private $firstname;
-    private $email;
-    private $password;
-    private $token;
-    private $active;
-    private $id_role;
-    private $job_title;
-    private $description;
-    private $fb;
-    private $twitter;
-    private $linkedin;
+    private string $id_user;
+    private string $name;
+    private string $firstname;
+    private string $email;
+    private string $password;
+    private string $token;
+    private int $active;
+    private int $id_role;
+    private string $image_user;
+    private string $job_title;
+    private string $description;
+    private string $fb;
+    private string $twitter;
+    private string $linkedin;
 
     public function __construct()
     {
@@ -23,32 +24,32 @@ class User
     }
 
     // Getters and setters
-    public function getName(): string
+    public function getName()
     {
         return $this->name ?? "";
     }
 
-    public function setName(string $name): void
+    public function setName($name )
     {
         $this->name = $name;
     }
 
-    public function getFirstName(): string
+    public function getFirstName()
     {
         return $this->firstname ?? "";
     }
 
-    public function setFirstName(string $firstname): void
+    public function setFirstName($firstname)
     {
         $this->firstname = $firstname;
     }
 
-    public function getEmail(): ?string
+    public function getEmail()
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): void
+    public function setEmail($email)
     {
         $this->email = $email;
     }
@@ -58,98 +59,107 @@ class User
         return $this->password;
     }
 
-    public function setPassword(string $password): void
+    public function setPassword( $password )
     {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public function getIdRole(): int
+    public function getIdRole()
     {
         return $this->id_role;
     }
 
-    public function setIdRole(?int $id_role): void
+    public function setIdRole()
     {
         $this->id_role;
     }
 
+    public function getImageUser()
+    {
+        return $this->image_user;
+    }
 
-    public function getToken(): string
+    public function setImageUser( $image_user )
+    {
+        $this->image_user = $image_user;
+    }
+
+    public function getToken()
     {
         return $this->token;
     }
 
-    public function setToken(string $token): void
+    public function setToken( $token )
     {
         $this->token = $token;
     }
 
-    public function getActive(): int
+    public function getActive()
     {
-        return $this->active = 0;
+        return $this->active;
     }
 
-    public function setActive(int $active): void
+    public function setActive( $active )
     {
         $this->active = $active;
     }
 
-    public function getIdUser(): int
+    public function getIdUser()
     {
         return $this->id_user;
     }
 
-    public function setIdUser(int $id_user): void
+    public function setIdUser($id_user)
     {
         $this->id_user = $id_user;
     }
 
-    public function getJobTitle(): string
+    public function getJobTitle()
     {
         return $this->job_title;
     }
 
-    public function setJobTitle(string $job_title): void
+    public function setJobTitle( $job_title )
     {
         $this->job_title = $job_title;
     }
 
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->description;
     }
 
-    public function setDescription(string $description): void
+    public function setDescription( $description )
     {
         $this->description = $description;
     }
 
-    public function getFb(): string
+    public function getFb()
     {
         return $this->fb;
     }
 
-    public function setFb(string $fb): void
+    public function setFb( $fb )
     {
         $this->fb = $fb;
     }
 
-    public function getTwitter(): string
+    public function getTwitter()
     {
         return $this->twitter;
     }
 
-    public function setTwitter(string $twitter): void
+    public function setTwitter( $twitter )
     {
         $this->twitter = $twitter;
     }
 
-    public function getLinkedin(): string
+    public function getLinkedin()
     {
         return $this->linkedin;
     }
 
-    public function setLinkedin(string $linkedin): void
+    public function setLinkedin( $linkedin )
     {
         $this->linkedin = $linkedin;
     }
@@ -174,7 +184,7 @@ class UserRepository extends Connect
             $user->setFirstName($data['firstname']);
             $user->setEmail($data['email']);
             $user->setPassword($data['password']);
-            $user->setIdRole($data['id_role']);
+            $user->setIdRole();
 
             return $user;
         }
@@ -198,17 +208,25 @@ class UserRepository extends Connect
 
     public function inscription(User $user)
     {
-        $stmt = $this->getDb()->prepare("INSERT INTO users (email, name, firstname, password, id_role)
-        VALUES (:email, :name, :firstname, :password, :id_role)");
-
+        $stmt = $this->getDb()->prepare("INSERT INTO users (name, firstname, email, password, token, active, id_role, image_user, job_title, description, fb, twitter, linkedin)
+        VALUES (:name, :firstname, :email, :password, :token, :active, :id_role, :image_user, :job_title, :description, :fb, :twitter, :linked)");
         $stmt->execute([
-            'email' => $user->getEmail(),
             'name' => $user->getName(),
             'firstname' => $user->getFirstName(),
+            'email' => $user->getEmail(),
             'password' => $user->getPassword(),
-            'id_role' => 2
+            'token' => $user->getToken(),
+            'active' => $user->getActive(),
+            'id_role' => $user->getIdRole() ,
+            'image_user' => $user->getImageUser(),
+            'job_title' => $user->getJobTitle(),
+            'description' => $user->getDescription(),
+            'fb' => $user->getFb(),
+            'twitter' => $user->getTwitter(),
+            'linkedin' => $user->getLinkedin()
         ]);
     }
+
 
     public function deleteUserById(User $user)
     {
@@ -218,16 +236,26 @@ class UserRepository extends Connect
     }
 
     public function updateUser(User $user)
-    {
-        $stmt = $this->getDb()->prepare("UPDATE users SET name = :name, firstname = :firstname, password = :password, id_role = :id_role WHERE id_user = :id_user");
-        $stmt->execute([
-            'name' => $user->getName(),
-            'firstname' => $user->getFirstName(),
-            'password' => $user->getPassword(),
-            'id_role' => $user->getIdRole(),
-            ]);
+{
+    $stmt = $this->getDb()->prepare("UPDATE users SET name = :name, firstname = :firstname, email = :email, password = :password, token = :token, active = :active, id_role = :id_role, image_user = :image_user, job_title = :job_title, description = :description, fb = :fb, twitter = :twitter, linkedin = :linkedin WHERE id_user = :id");
+    $stmt->execute([
+        'id' => $user->getIdUser(),
+        'name' => $user->getName(),
+        'firstname' => $user->getFirstName(),
+        'email' => $user->getEmail(),
+        'password' => $user->getPassword(),
+        'token' => $user->getToken(),
+        'active' => 1,
+        'id_role' => 2,
+        'image_user' => $user->getImageUser(),
+        'job_title' => $user->getJobTitle(),
+        'description' => $user->getDescription(),
+        'fb' => $user->getFb(),
+        'twitter' => $user->getTwitter(),
+        'linkedin' => $user->getLinkedin()
+    ]);
+}
 
-    }
 
 }
 ?>
