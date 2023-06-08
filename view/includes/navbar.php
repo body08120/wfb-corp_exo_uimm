@@ -1,4 +1,6 @@
+
 <link rel="stylesheet" href="assets/css/navbar.css">
+
 
 <div class="hidden sticky top-0 z-50 md:w-full relative md:block">
   <nav class="navbarstyle">
