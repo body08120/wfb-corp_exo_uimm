@@ -1,6 +1,6 @@
 <?php
 
-require_once('src\model\classes\Connect.php');
+require_once('src/model/classes/Connect.php');
 
 // Récupération des informations de l'article, des images et de la catégorie de l'article selon son ID
 $id_article = $_GET['id_article'];
