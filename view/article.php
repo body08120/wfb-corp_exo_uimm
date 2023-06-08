@@ -1,57 +1,14 @@
 <?php
 
-require_once('src/model/classes/Connect.php');
+require_once('src/model/classes/Article.php');
 
 // Récupération des informations de l'article, des images et de la catégorie de l'article selon son ID
 $id_article = $_GET['id_article'];
 
-$stmt = $connect->prepare("SELECT a.*, ca.category, i.image_head, i.image_content, u.name AS user_name, u.firstname AS user_firstname
-                          FROM articles AS a 
-                          LEFT JOIN users AS u ON u.id_user = a.id_user
-                          LEFT JOIN images AS i ON a.id_article = i.id_article
-                          LEFT JOIN category_articles AS ca ON a.id_category_article = ca.id_category_article
-                          WHERE a.id_article = :id_article");
+$articleRepository = new ArticleRepository();
+$article = $articleRepository->getArticleById($id_article);
 
-$stmt->bindParam(':id_article', $id_article, PDO::PARAM_INT);
-$stmt->execute();
-$article = $stmt->fetch(PDO::FETCH_ASSOC);
-
-// Vérification si un article a été trouvé avec l'ID spécifié
-if (empty($article)) {
-    echo "Aucun article trouvé avec l'ID spécifié.";
-    exit;
-}
-
-// Récupération des informations spécifiques de l'article
-$title = $article['title'];
-$enunciate = $article['enunciate'];
-$intro = $article['intro'];
-$p1 = $article['p1'];
-$p2 = $article['p2'];
-$p3 = $article['p3'];
-$conclusion = $article['conclusion'];
-$date = $article['date'];
-$timestamp = strtotime($date);
-// Créer le nouveau format à partir du timestamp
-$date = date("d-m-Y", $timestamp);
-$category = $article['category'];
-$image_head = $article['image_head'];
-$image_content = $article['image_content'];
-$user_name = $article['user_name'];
-$user_firstname = $article['user_firstname'];
-
-// Récupération des derniers articles (excluant l'article actuel)
-$stmt = $connect->prepare("SELECT a.*, ca.category, i.image_head
-                          FROM articles AS a
-                          LEFT JOIN images AS i ON a.id_article = i.id_article
-                          LEFT JOIN category_articles AS ca ON a.id_category_article = ca.id_category_article
-                          WHERE a.id_article <> :id_article
-                          ORDER BY a.date DESC
-                          LIMIT 3");
-
-$stmt->bindParam(':id_article', $id_article, PDO::PARAM_INT);
-$stmt->execute();
-$articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$articles = $articleRepository->getArticles(3);
 ?>
 
 
@@ -63,7 +20,7 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <?= $title ?>
+        <?= $article->getTitle(); ?>
     </title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -100,38 +57,38 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <section class="featured-image m-4">
         <article class="article mt-4">
             <h1 class="text-4xl m-4">
-                <?= $title ?>
+                <?= $article->getTitle(); ?>
             </h1>
             <h2 class="text-rose not-italic uppercase">
-                <?= $category ?>
+                <?= $article->getCategoryArticle(); ?>
             </h2>
             <h2>
-                <?= $enunciate ?>
+                <?= $article->getEnunciate(); ?>
             </h2>
             <div class="img">
-                <img src="<?= $image_head ?>" alt="cybersecurite" class="w-3/4 mx-auto my-4 lg:w-6/12">
+                <img src="<?= $article->getImage(); ?>" alt="cybersecurite" class="w-3/4 mx-auto my-4 lg:w-6/12">
             </div>
             <p class="intro w-3/4 mx-auto lg:w-2/4">
-                <?= $intro ?>
+                <?= $article->getIntro(); ?>
             </p>
             <p class="paragraph_1 w-3/4 mx-auto lg:w-2/4">
-                <?= $p1 ?>
+                <?= $article->getP1(); ?>
             </p>
             <p class="paragraph_2 w-3/4 mx-auto lg:w-2/4">
-                <?= $p2 ?>
+                <?= $article->getP2(); ?>
             </p>
             <p class="paragraph_3 w-3/4 mx-auto lg:w-2/4">
-                <?= $p3 ?>
+                <?= $article->getP3(); ?>
             </p>
             <div class="img">
-                <img src="<?= $image_content ?>" alt="cybersecurite" class="height-auto w-3/4 mx-auto my-4 lg:w-6/12">
+                <img src="<?= $article->getImageContent(); ?>" alt="cybersecurite" class="height-auto w-3/4 mx-auto my-4 lg:w-6/12">
             </div>
             <p class="conclusion w-3/4 mx-auto lg:w-2/4">
-                <?= $conclusion ?>
+                <?= $article->getConclusion(); ?>
             </p>
             <div id="share-buttons">
                 <span class="mx-auto italic">
-                    <?= $user_firstname, " " . $user_name . " - " . $date ?>
+                    <?= $article->getAuteur() . " - " . $article->getFormattedDate(); ?>
                 </span>
                 <span>Partager</span>
                 <!-- Facebook -->
@@ -151,20 +108,20 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="cards" style="margin: auto;">
 
                     <?php foreach ($articles as $article): ?>
-                        <a href="index.php?action=article&id_article=<?= $article['id_article'] ?>">
+                        <a href="index.php?action=article&id_article=<?= $article->getIdArticle(); ?>">
                             <div class="card">
                                 <div class="card-content">
                                     <div class="card-image">
-                                        <img src="<?= $article['image_head'] ?>" alt="cybersecurite" width="250px">
+                                        <img src="<?= $article->getImage(); ?>" alt="cybersecurite" width="250px">
                                     </div>
                                     <div class="card-info-wrapper">
                                         <div class="card-info">
                                             <div class="card-info-title">
                                                 <h3 class="category_article">
-                                                    <?= isset($article['category']) ? $article['category'] : '' ?>
+                                                    <?= $article->getCategoryArticle(); ?>
                                                 </h3>
                                                 <h4>
-                                                    <?= isset($article['title']) ? $article['title'] : '' ?>
+                                                    <?= $article->getTitle(); ?>
                                                 </h4>
                                             </div>
                                         </div>
