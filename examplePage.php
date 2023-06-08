@@ -1,3 +1,16 @@
+<?php
+require_once('helpers/autoloader.php');
+
+// require_once('src/model/classes/Code.php');
+$code = 5555;
+$codeRepository = new CodeRepository();
+
+var_dump($codeRepository->checkCodeExists($code));
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
