@@ -20,13 +20,15 @@ class Article
 
     private string $conclusion;
 
-    private Datetime $date;
+    private string $date;
 
     private int $id_category_article;
 
     private int $id_user;
 
     private string $image;
+
+    private string $category_article;
 
     public function __construct()
     {
@@ -38,10 +40,9 @@ class Article
         return $this->id_article;
     }
 
-    public function setIdArticle(int $id_article): Article
+    public function setIdArticle(int $id_article)
     {
         $this->id_article = $id_article;
-        return $this;
     }
 
     public function getTitle(): string
@@ -49,10 +50,9 @@ class Article
         return $this->title;
     }
 
-    public function setTitle(string $title): Article
+    public function setTitle(string $title)
     {
         $this->title = $title;
-        return $this;
     }
 
     public function getEnunciate(): string
@@ -60,10 +60,9 @@ class Article
         return $this->enunciate;
     }
 
-    public function setEnunciate(string $enunciate): Article
+    public function setEnunciate(string $enunciate)
     {
         $this->enunciate = $enunciate;
-        return $this;
     }
 
     public function getIntro(): string
@@ -71,10 +70,9 @@ class Article
         return $this->intro;
     }
 
-    public function setIntro(string $intro): Article
+    public function setIntro(string $intro)
     {
         $this->intro = $intro;
-        return $this;
     }
 
     public function getP1(): string
@@ -82,10 +80,9 @@ class Article
         return $this->p1;
     }
 
-    public function setP1(string $p1): Article
+    public function setP1(string $p1)
     {
         $this->p1 = $p1;
-        return $this;
     }
 
     public function getP2(): string
@@ -93,10 +90,9 @@ class Article
         return $this->p2;
     }
 
-    public function setP2(string $p2): Article
+    public function setP2(string $p2)
     {
         $this->p2 = $p2;
-        return $this;
     }
 
     public function getP3(): string
@@ -104,10 +100,9 @@ class Article
         return $this->p3;
     }
 
-    public function setP3(string $p3): Article
+    public function setP3(string $p3)
     {
         $this->p3 = $p3;
-        return $this;
     }
 
     public function getConclusion(): string
@@ -115,21 +110,19 @@ class Article
         return $this->conclusion;
     }
 
-    public function setConclusion(string $conclusion): Article
+    public function setConclusion(string $conclusion)
     {
         $this->conclusion = $conclusion;
-        return $this;
     }
 
-    public function getDate(): Datetime
+    public function getDate()
     {
         return $this->date;
     }
 
-    public function setDate(Datetime $date): Article
+    public function setDate(string $date)
     {
         $this->date = $date;
-        return $this;
     }
 
     public function getIdCategoryArticle(): int
@@ -137,10 +130,9 @@ class Article
         return $this->id_category_article;
     }
 
-    public function setIdCategoryArticle(int $id_category_article): Article
+    public function setIdCategoryArticle(int $id_category_article)
     {
         $this->id_category_article = $id_category_article;
-        return $this;
     }
 
     public function getIdUser(): int
@@ -148,10 +140,9 @@ class Article
         return $this->id_user;
     }
 
-    public function setIdUser(int $id_user): Article
+    public function setIdUser(int $id_user)
     {
         $this->id_user = $id_user;
-        return $this;
     }
 
     public function getImage(): string
@@ -159,10 +150,19 @@ class Article
         return $this->image;
     }
 
-    public function setImage(string $image): Article
+    public function setImage(string $image)
     {
         $this->image = $image;
-        return $this;
+    }
+
+    public function getCategoryArticle(): string
+    {
+        return $this->category_article;
+    }
+
+    public function setCategoryArticle(string $category_article)
+    {
+        $this->category_article = $category_article;
     }
 }
 
@@ -173,31 +173,91 @@ class ArticleRepository extends Connect
         parent::__construct();
     }
 
-    public function getArticles(): array
+    public function getArticles()
     {
-        $stmt = $this->getDb()->prepare("SELECT a.*, ca.category, i.image_head, i.image_content, u.name AS user_name, u.firstname AS user_firstname
-                          FROM articles AS a 
-                          LEFT JOIN users AS u ON u.id_user = a.id_user
-                          LEFT JOIN images AS i ON a.id_article = i.id_article
-                          LEFT JOIN category_articles AS ca ON a.id_category_article = ca.id_category_article");
-        $stmt->execute();
-        $articles = $stmt->fetchAll();
-
-        return $articles;
-    }
-
-    public function getArticlesByCategory(int $category): array
-    {
-        $sql = "SELECT a.*, i.*, u.firstname, u.name FROM articles AS a
+        $sql = "SELECT a.*, ca.category, i.image_head, i.image_content, u.name AS user_name, u.firstname AS user_firstname
+                FROM articles AS a 
                 LEFT JOIN users AS u ON u.id_user = a.id_user
                 LEFT JOIN images AS i ON a.id_article = i.id_article
-                WHERE id_category_article = :category LIMIT 2";
+                LEFT JOIN category_articles AS ca ON a.id_category_article = ca.id_category_article
+                ORDER BY a.date DESC";
         $stmt = $this->getDb()->prepare($sql);
-        $stmt->bindParam(':category', $category);
         $stmt->execute();
         $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Retourner les articles trouvés
-        return $articles;
+        $posts = [];
+
+        if ($articles !== null) {
+            foreach ($articles as $post) {
+                $article = new Article();
+                $article->setIdArticle($post['id_article']);
+                $article->setTitle($post['title']);
+                $article->setEnunciate($post['enunciate']);
+                $article->setIntro($post['intro']);
+                $article->setP1($post['p1']);
+                $article->setP2($post['p2']);
+                $article->setP3($post['p3']);
+                $article->setConclusion($post['conclusion']);
+                $article->setDate($post['date']);
+                $article->setIdCategoryArticle($post['id_category_article']);
+                $article->setIdUser($post['id_user']);
+                $article->setImage($post['image_head']);
+                $article->setCategoryArticle($post['category']);
+                $posts[] = $article;
+            }
+        }
+
+        return $posts;
+    }
+
+    public function getArticlesByCategory(int $category, $limit = null)
+    {
+        $sql = "SELECT a.*, i.*, u.firstname, u.name, ca.category FROM articles AS a
+                LEFT JOIN users AS u ON u.id_user = a.id_user
+                LEFT JOIN images AS i ON a.id_article = i.id_article
+                LEFT JOIN category_articles AS ca ON a.id_category_article = ca.id_category_article
+                WHERE ca.id_category_article = :category
+                ORDER BY a.date DESC";
+
+    if ($limit !== null) {
+        $sql .= " LIMIT :limit";
+    }
+
+    $stmt = $this->getDb()->prepare($sql);
+    $stmt->bindParam(':category', $category);
+
+    if ($limit !== null) {
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    }
+
+    $stmt->execute();
+    $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $posts = [];
+
+        if ($articles !== null) {
+            foreach ($articles as $post) {
+                $article = new Article();
+                $article->setIdArticle($post['id_article']);
+                $article->setTitle($post['title']);
+                $article->setEnunciate($post['enunciate']);
+                $article->setIntro($post['intro']);
+                $article->setP1($post['p1']);
+                $article->setP2($post['p2']);
+                $article->setP3($post['p3']);
+                $article->setConclusion($post['conclusion']);
+                $article->setDate($post['date']);
+                $article->setIdCategoryArticle($post['id_category_article']);
+                $article->setIdUser($post['id_user']);
+                $article->setImage($post['image_head']);
+                $article->setCategoryArticle($post['category']);
+                $posts[] = $article;
+            }
+        }
+
+        // var_dump($posts);
+
+        return $posts;
+
     }
 }
