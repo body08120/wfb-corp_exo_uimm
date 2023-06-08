@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 06, 2023 at 01:37 PM
+-- Generation Time: Jun 08, 2023 at 09:38 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.2.0
 
@@ -158,7 +158,16 @@ CREATE TABLE IF NOT EXISTS `projects` (
   PRIMARY KEY (`id_project`),
   KEY `projects_category_projects_FK` (`id_category_project`),
   KEY `projects_users0_FK` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `projects`
+--
+
+INSERT INTO `projects` (`id_project`, `title`, `image`, `id_category_project`, `id_user`) VALUES
+(1, 'Site de Voyage', 'assets\\images\\projet_2.jpg', 1, 1),
+(2, 'Construction & Co', 'assets\\images\\projet_1.jpg', 3, 2),
+(3, 'Informa\'Tools', 'assets\\images\\homepageimg.jpg', 2, 2);
 
 -- --------------------------------------------------------
 
