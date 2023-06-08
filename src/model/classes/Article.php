@@ -210,7 +210,7 @@ class ArticleRepository extends Connect
         return $posts;
     }
 
-    public function getArticlesByCategory(int $category)
+    public function getArticlesByCategory(int $category, $limit = null)
     {
         $sql = "SELECT a.*, i.*, u.firstname, u.name, ca.category FROM articles AS a
                 LEFT JOIN users AS u ON u.id_user = a.id_user
@@ -218,10 +218,20 @@ class ArticleRepository extends Connect
                 LEFT JOIN category_articles AS ca ON a.id_category_article = ca.id_category_article
                 WHERE ca.id_category_article = :category
                 ORDER BY a.date DESC";
-        $stmt = $this->getDb()->prepare($sql);
-        $stmt->bindParam(':category', $category);
-        $stmt->execute();
-        $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($limit !== null) {
+        $sql .= " LIMIT :limit";
+    }
+
+    $stmt = $this->getDb()->prepare($sql);
+    $stmt->bindParam(':category', $category);
+
+    if ($limit !== null) {
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    }
+
+    $stmt->execute();
+    $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $posts = [];
 
