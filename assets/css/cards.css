@@ -72,7 +72,6 @@
   flex-direction: column;
   flex-grow: 1;
   inset: 1px;
-  padding: 10px;
   position: absolute;
   z-index: 2;
 }
@@ -93,7 +92,7 @@ i {
 .card-image {
   align-items: center;
   display: flex;
-  height: 140px;
+  height: 100%;
   justify-content: center;
   overflow: hidden;
 
