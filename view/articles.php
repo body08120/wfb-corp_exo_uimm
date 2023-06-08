@@ -120,7 +120,7 @@ $articlesRef = $articleRepository->getArticlesByCategory($ref);
                     <div class="cards" style="margin: auto;">
                         <?php foreach ($articlesDev as $articleDev): ?>
                             <a href="index.php?action=article&id_article=<?= $articleDev->getIdArticle(); ?>">
-                                <div class="card text-justify tracking-widest">
+                                <div class="card text-justify lg:tracking-widest">
                                     <div class="card-content">
                                         <div class="card-image">
                                             <img src="<?= $articleDev->getImage(); ?>" alt="Image de fond"
@@ -132,7 +132,7 @@ $articlesRef = $articleRepository->getArticlesByCategory($ref);
                                                     <h3 class="category_articles">
                                                         <?= $articleDev->getTitle(); ?>
                                                     </h3>
-                                                    <h4>
+                                                    <h4 class="hidden lg:block">
                                                         <?= substr($articleDev->getEnunciate(), 0, 100) . '...'; ?>
                                                     </h4>
                                                 </div>
@@ -150,7 +150,7 @@ $articlesRef = $articleRepository->getArticlesByCategory($ref);
                     <div class="cards" style="margin: auto;">
                         <?php foreach ($articlesDesign as $articleDes): ?>
                             <a href="index.php?action=article&id_article=<?= $articleDes->getIdArticle(); ?>">
-                                <div class="card text-justify tracking-widest">
+                                <div class="card text-justify lg:tracking-widest">
                                     <div class="card-content">
                                         <div class="card-image">
                                             <img src="<?= $articleDes->getImage(); ?>" alt="Image de fond"
@@ -162,7 +162,7 @@ $articlesRef = $articleRepository->getArticlesByCategory($ref);
                                                     <h3 class="category_articles">
                                                         <?= $articleDes->getTitle(); ?>
                                                     </h3>
-                                                    <h4>
+                                                    <h4 class="hidden lg:block">
                                                         <?= substr($articleDes->getEnunciate(), 0, 100) . '...'; ?>
                                                     </h4>
                                                 </div>
@@ -181,7 +181,7 @@ $articlesRef = $articleRepository->getArticlesByCategory($ref);
                     <div class="cards" style="margin: auto;">
                         <?php foreach ($articlesRef as $articleRef): ?>
                             <a href="index.php?action=article&id_article=<?= $articleRef->getIdArticle(); ?>">
-                                <div class="card text-justify tracking-widest">
+                                <div class="card text-justify lg:tracking-widest">
                                     <div class="card-content">
                                         <div class="card-image">
                                             <img src="<?= $articleRef->getImage(); ?>" alt="Image de fond"
@@ -193,7 +193,7 @@ $articlesRef = $articleRepository->getArticlesByCategory($ref);
                                                     <h3 class="category_articles">
                                                         <?= $articleRef->getTitle(); ?>
                                                     </h3>
-                                                    <h4>
+                                                    <h4 class="hidden lg:block">
                                                         <?= substr($articleRef->getEnunciate(), 0, 100) . '...'; ?>
                                                     </h4>
                                                 </div>
