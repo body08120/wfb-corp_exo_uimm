@@ -1,6 +1,5 @@
 <?php
-
-require_once('src/model/classes/Article.php');
+require_once('helpers/autoloader.php');
 
 // Récupération des informations de l'article, des images et de la catégorie de l'article selon son ID
 $id_article = $_GET['id_article'];
