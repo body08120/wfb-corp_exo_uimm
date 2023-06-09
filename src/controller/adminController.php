@@ -2,7 +2,7 @@
 
 function panelAdmin()
 {
-    require_once('view/admin/admin.php');
+    require_once('view/admin/crud-article.php');
 }
 
 function vueInscription()
