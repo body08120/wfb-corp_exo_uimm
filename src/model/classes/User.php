@@ -77,7 +77,7 @@ class User
     {
         return $this->image_user;
     }
-  
+
     public function setImageUser($image_user)
     {
         $this->image_user = $image_user;
@@ -87,8 +87,8 @@ class User
     {
         return $this->token;
     }
-  
-  public function setToken($token)
+
+    public function setToken($token)
     {
         $this->token = $token;
     }
@@ -161,14 +161,6 @@ class User
     public function setLinkedin($linkedin)
     {
         $this->linkedin = $linkedin;
-    }
-    public function getCode()
-    {
-        return $this->code;
-    }
-    public function setCode( $code )
-    {
-        $this->code = $code;
     }
 }
 ?>

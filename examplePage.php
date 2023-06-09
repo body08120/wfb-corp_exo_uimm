@@ -5,7 +5,15 @@ require_once('helpers/autoloader.php');
 $code = 5555;
 $codeRepository = new CodeRepository();
 
+$codeRepository->createCodeInDb();
+
 var_dump($codeRepository->checkCodeExists($code));
+if ($code){
+    // inscrire l'utilisateur
+    // si l'utilisateur est bien inscrit
+    // on détruit le code de la base de donnée
+    // plus aucun code n'existe, il faut une intéraction de l'admin pour un générer un nouveau
+}
 ?>
 
 

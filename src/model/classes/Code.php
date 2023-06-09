@@ -10,9 +10,9 @@ class Code
     {
     }
 
-    public function getIdCode(): int
+    public function getCode(): string
     {
-        return $this->idCode;
+        return $this->code;
     }
 
     public function setCode(string $code)
