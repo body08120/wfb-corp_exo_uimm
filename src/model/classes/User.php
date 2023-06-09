@@ -17,6 +17,7 @@ class User
     private string $fb;
     private string $twitter;
     private string $linkedin;
+    private string $code;
 
     public function __construct()
     {
@@ -162,6 +163,14 @@ class User
     public function setLinkedin( $linkedin )
     {
         $this->linkedin = $linkedin;
+    }
+    public function getCode()
+    {
+        return $this->code;
+    }
+    public function setCode( $code )
+    {
+        $this->code = $code;
     }
 }
 
