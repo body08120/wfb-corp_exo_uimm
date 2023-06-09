@@ -1,5 +1,5 @@
 <?php
-require_once('src/model/classes/Article.php');
+require_once('helpers/autoloader.php');
 
 $articleRepository = new ArticleRepository();
 $dev = 1;

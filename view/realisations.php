@@ -1,5 +1,6 @@
 <?php 
-require_once('src/model/classes/Connect.php');
+require_once('helpers/autoloader.php');
+$connect = new Connect();
 
 // Récupération des 6 derniers projets ajoutés
 $stmt_all = $connect->prepare("SELECT p.*, cp.category_project
