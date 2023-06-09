@@ -16,7 +16,6 @@ class User
     private string $fb;
     private string $twitter;
     private string $linkedin;
-    private string $code;
 
     public function __construct()
     {
@@ -78,7 +77,7 @@ class User
     {
         return $this->image_user;
     }
-
+  
     public function setImageUser($image_user)
     {
         $this->image_user = $image_user;
@@ -88,8 +87,8 @@ class User
     {
         return $this->token;
     }
-
-    public function setToken($token)
+  
+  public function setToken($token)
     {
         $this->token = $token;
     }
