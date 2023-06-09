@@ -7,6 +7,12 @@ class CodeRepository extends Connect
         parent::__construct();
     }
 
+    public function createCodeInDb()
+    {
+        $code = uniqid();
+        var_dump($code);
+    }
+
     public function checkCodeExists(string $code): bool
     {
         $sql = "SELECT * FROM `code` WHERE `code` =?";
