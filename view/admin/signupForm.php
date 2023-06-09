@@ -10,52 +10,54 @@
 </head>
 <body>
 
-    <section>
-        <div class="box">
-            <div class="form">
-                <h2>Créer compte</h2>
-                <form action="src/controller/formController.php" method="post">
+<section>
+    <div class="box">
+        <div class="form">
+            <h2>Créer compte</h2>
+            <form action="src/controller/formController.php" method="post" enctype="multipart/form-data">
 
-                    <div class="inputBx">
-                        <input type="text" name="name" placeholder="Nom">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-                    
-                    <div class="inputBx">
-                        <input type="text" name="firstname" placeholder="Prénom">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-                    
-                    <div class="inputBx">
-                        <input type="email" name="email" placeholder="Email">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
+                <div class="inputBx">
+                    <input type="text" name="name" placeholder="Nom">
+                    <i class="fa-solid fa-user"></i>
+                </div>
 
-                    <div class="inputBx">
-                        <input type="password" name="password" placeholder="Mot de passe">
-                        <i class="fa-solid fa-lock"></i>
-                    </div>
+                <div class="inputBx">
+                    <input type="text" name="firstname" placeholder="Prénom">
+                    <i class="fa-solid fa-user"></i>
+                </div>
 
-                    <div class="inputBx">
-                        <input type="password" name="verifmdp" placeholder="Confirmer Mot de passe">
-                        <i class="fa-solid fa-lock"></i>
-                    </div>
+                <div class="inputBx">
+                    <input type="email" name="email" placeholder="Email">
+                    <i class="fa-solid fa-user"></i>
+                </div>
 
-                    <div class="inputBx">
-                        <input type="text" name="code" placeholder="Code admin">
-                        <i class="fa-solid fa-lock"></i>
-                    </div>
+                <div class="inputBx">
+                    <input type="password" name="password" placeholder="Mot de passe">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
 
-                    <div class="inputBx">
-                        <input type="submit" value="Enregistrer">
-                    </div>
+                <div class="inputBx">
+                    <input type="password" name="verifmdp" placeholder="Confirmer Mot de passe">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
 
-                </form>
-            </div>
+                <div class="inputBx">
+                    <input type="text" name="code" placeholder="Code admin">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+
+                <div class="inputBx">
+                    <input type="file" name="image" accept="image/*">
+                </div>
+
+                <div class="inputBx">
+                    <input type="submit" value="Enregistrer">
+                </div>
+
+            </form>
         </div>
-    </section>
-    
-        
+    </div>
+</section>
 
 </body>
 </html>
