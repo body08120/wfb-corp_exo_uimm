@@ -104,18 +104,18 @@ $articles_ref = $stmt_ref->fetchAll(PDO::FETCH_ASSOC);
                     <li class="l flex-1">
                         <a href="#dev-section"
                             class="t text-gray-300 relative flex items-center justify-center gap-2 rounded-lg bg-[#141414] px-3 py-2 shadow hover:bg-[#171717] hover:text-gray-500">
-                            Pôle développement</a>
+                            Développement Web</a>
                     </li>
                     <li class="l flex-1">
                         <a href="#design-section"
                             class="t text-gray-300 relative flex items-center justify-center gap-2 rounded-lg bg-[#141414] px-3 py-2 shadow hover:bg-[#171717] hover:text-gray-500">
-                            Pôle graphique
+                            Web Design
                         </a>
                     </li>
                     <li class="l flex-1">
                         <a href="#ref-section"
                             class="t text-gray-300 relative flex items-center justify-center gap-2 rounded-lg bg-[#141414] px-3 py-2 shadow hover:bg-[#171717] hover:text-gray-500">
-                            Expert en référencement
+                            Référencement
                         </a>
                     </li>
                 </ul>

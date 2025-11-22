@@ -84,7 +84,7 @@ $projet_application = $stmt_app->fetchAll(PDO::FETCH_ASSOC);
 
 <body class="bg-primary">
 
-    <?php include_once('includes/navbar.php') ?>
+    <?php include_once('view/includes/navbar.php') ?>
 
     <main class="h-full overflow-hidden flex items-center justify-center">
         <div class="space-y-5 w-full">
@@ -208,12 +208,31 @@ $projet_application = $stmt_app->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </div>
     </main>
-    <?php include_once('includes/footer.php') ?>
+    <?php include_once('view/includes/footer.php') ?>
 
+    <script>
+        const sections = ['all-section', 'dev-section', 'design-section', 'ref-section'];
+
+        sections.forEach((sectionId) => {
+            const section = document.getElementById(sectionId);
+            const link = document.querySelector(`a[href="#${sectionId}"]`);
+
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                // Hide all sections
+                sections.forEach((id) => {
+                    document.getElementById(id).style.display = 'none';
+                });
+
+                // Show selected section
+                section.style.display = 'block';
+            });
+        });
+    </script>
 
     <!--SCRIPT CARDS-->
     <script src="assets/js/cards.js"></script>
-    <script src="assets/js/tabs.js"></script>
 
     <!-- flowbite-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>

@@ -35,10 +35,22 @@ class Connect {
 }
 
 // Constantes d'environnement définissant les informations de connexion à la base de données
-define("DBHOST", "localhost");
-define("DBUSER", "root");
-define("DBPASS", "");
-define("DBNAME", "wfbcorp");
+// Détecte si on est en Docker en vérifiant si le host "mysql" est accessible
+$isDocker = @fsockopen('mysql', 3306, $errno, $errstr, 1) !== false;
+
+if ($isDocker) {
+    // Configuration Docker
+    define("DBHOST", "mysql");
+    define("DBUSER", "wfbcorp_user");
+    define("DBPASS", "wfbcorp_pass");
+    define("DBNAME", "wfbcorp");
+} else {
+    // Configuration locale (WAMP/LAMP)
+    define("DBHOST", "localhost");
+    define("DBUSER", "root");
+    define("DBPASS", "");
+    define("DBNAME", "wfbcorp");
+}
 
 // Instanciation de la classe Connect pour établir la connexion à la base de données
 $connect = new Connect();
