@@ -2,7 +2,7 @@
 require_once('src/model/classes/Connect.php');
 
 // Récupération des 6 derniers projets ajoutés
-$stmt_all = $connect->prepare("SELECT p.*, cp.category_project
+$stmt_all = $connect->prepare("SELECT p.id_project, p.title, p.description, p.image, cp.category_project
                               FROM projects AS p
                               INNER JOIN users AS u ON u.id_user = p.id_user
                               INNER JOIN category_projects AS cp ON p.id_category_project = cp.id_category_project
@@ -122,13 +122,13 @@ $projet_application = $stmt_app->fetchAll(PDO::FETCH_ASSOC);
                         <div class="card">
                             <div class="card-content">
                                 <div class="card-image">
-                                    <img src="<?php echo $rowall['image']?>" alt="artificial intelligence"
-                                        width="100%">
+                                    <img src="<?php echo $rowall['image']?>" alt="artificial intelligence" width="100%">
                                 </div> 
                                 <div class="card-info-wrapper">
                                     <div class="card-info"> 
                                         <div class="card-info-title"> 
                                             <h3 class="category_articles"><?php echo $rowall['title']?></h3>
+                                            <h4><?php echo $rowall['description']?></h4>
                                         </div> 
                                     </div>
                                 </div>
@@ -151,6 +151,7 @@ $projet_application = $stmt_app->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="card-info">
                                         <div class="card-info-title">
                                             <h3 class="category_articles"><?php echo $rowall['title']?></h3>
+                                            <h4><?php echo $rowall['description']?></h4>
                                         </div>
                                     </div>
                                 </div>
@@ -174,6 +175,7 @@ $projet_application = $stmt_app->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="card-info">
                                         <div class="card-info-title">
                                             <h3 class="category_articles"><?php echo $rowall['title']?></h3>
+                                            <h4><?php echo $rowall['description']?></h4>
                                         </div>
                                     </div>
                                 </div>
@@ -196,6 +198,7 @@ $projet_application = $stmt_app->fetchAll(PDO::FETCH_ASSOC);
                                     <div class="card-info">
                                         <div class="card-info-title">
                                             <h3 class="category_articles"><?php echo $rowall['title']?></h3>
+                                            <h4><?php echo $rowall['description']?></h4>
                                         </div>
                                     </div>
                                 </div>

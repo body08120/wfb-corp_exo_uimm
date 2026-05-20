@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `category_projects` (
 --
 
 INSERT INTO `category_projects` (`id_category_project`, `category_project`) VALUES
-(1, 'Site vitrine'),
+(1, 'Site Vitrine'),
 (2, 'e-Commerce'),
 (3, 'Application');
 
@@ -152,6 +152,7 @@ DROP TABLE IF EXISTS `projects`;
 CREATE TABLE IF NOT EXISTS `projects` (
   `id_project` int NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
+  `description` text NOT NULL,
   `image` varchar(255) NOT NULL,
   `id_category_project` int NOT NULL,
   `id_user` int NOT NULL,
@@ -159,6 +160,17 @@ CREATE TABLE IF NOT EXISTS `projects` (
   KEY `projects_category_projects_FK` (`id_category_project`),
   KEY `projects_users0_FK` (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `projects` (`id_project`, `title`, `description`, `image`, `id_category_project`, `id_user`) VALUES
+(1, 'Site vitrine entreprise BTP', 'Conception et développement d\'un site vitrine pour une PME du secteur du BTP. Mise en valeur des réalisations, formulaire de devis et intégration Google Maps.', 'assets/images/projet_1.jpg', 1, 1),
+(2, 'Portfolio designer freelance', 'Portfolio en ligne pour un designer graphique freelance. Galerie interactive, animations CSS et formulaire de contact avec envoi de mail.', 'assets/images/card2.jpg', 1, 1),
+(3, 'Site vitrine cabinet médical', 'Site vitrine pour un cabinet médical avec prise de rendez-vous en ligne, présentation de l\'équipe et gestion des horaires.', 'assets/images/card3.jpg', 1, 1),
+(4, 'Boutique en ligne mode & accessoires', 'E-commerce complet pour une marque de mode : catalogue produits, panier, paiement sécurisé et gestion des commandes admin.', 'assets/images/card4.jpg', 2, 1),
+(5, 'E-commerce produits bio & naturels', 'Boutique en ligne spécialisée dans les produits bio avec filtres avancés, avis clients et tunnel de conversion optimisé.', 'assets/images/card5.jpg', 2, 1),
+(6, 'Marketplace services à domicile', 'Plateforme de mise en relation entre prestataires et particuliers avec système de notation, réservation et paiement intégré.', 'assets/images/card6.jpg', 2, 1),
+(7, 'Application de gestion de projets', 'Outil interne de suivi de projets et de tâches pour équipes agiles. Tableau Kanban, gestion des membres et historique d\'activité.', 'assets/images/projet_2.jpg', 3, 1),
+(8, 'App mobile réservation restaurant', 'Application web responsive pour la réservation de tables en ligne avec confirmation par e-mail et gestion des disponibilités.', 'assets/images/card7.jpg', 3, 1),
+(9, 'Dashboard analytics temps réel', 'Tableau de bord interactif pour la visualisation de KPIs en temps réel. Graphiques dynamiques, filtres temporels et export CSV.', 'assets/images/card8.jpg', 3, 1);
 
 -- --------------------------------------------------------
 

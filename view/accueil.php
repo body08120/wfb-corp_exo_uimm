@@ -1,3 +1,26 @@
+<?php
+require_once('src/model/classes/Connect.php');
+
+$stmt_projects = $connect->prepare(
+    "SELECT p.id_project, p.title, p.description, p.image, cp.category_project
+     FROM projects AS p
+     INNER JOIN category_projects AS cp ON p.id_category_project = cp.id_category_project
+     ORDER BY p.id_project DESC LIMIT 3"
+);
+$stmt_projects->execute();
+$home_projects = $stmt_projects->fetchAll(PDO::FETCH_ASSOC);
+
+$stmt_articles = $connect->prepare(
+    "SELECT a.id_article, a.title, ca.category, i.image_head
+     FROM articles AS a
+     INNER JOIN category_articles AS ca ON a.id_category_article = ca.id_category_article
+     INNER JOIN images AS i ON a.id_article = i.id_article
+     ORDER BY a.date DESC LIMIT 3"
+);
+$stmt_articles->execute();
+$home_articles = $stmt_articles->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!doctype html>
 
 
@@ -440,102 +463,27 @@
 </div>
 
 		<div class="cards">
+			<?php foreach ($home_projects as $project): ?>
 			<div class="card ntshow">
-			<div class="card-content">
-				<div class="card-image">
-				<a href="">
-				<img src="assets/images/image-contact.jpg">
-				</div>
-				</a>
-				<div class="card-info-wrapper">
-				<div class="card-info">
-					<div class="card-info-title">
-					<h3>Apartments</h3>  
-					<h4>Places to be apart. Wait, what?</h4>
-					</div>    
-				</div>
-				</div>
-			</div>
-			</div>
-			<div class="card ntshow">
-			<div class="card-content">
-				<div class="card-image">
-				<img src="assets/images/card2.jpg">
-				</div>
-				<div class="card-info-wrapper">
-				<div class="card-info">
-					<div class="card-info-title">
-					<h3>Unicorns</h3>  
-					<h4>A single corn. Er, I mean horn.</h4>
-					</div>    
-				</div>  
+				<div class="card-content">
+					<div class="card-image">
+						<img src="<?= $project['image'] ?>" alt="<?= $project['title'] ?>" width="100%">
+					</div>
+					<div class="card-info-wrapper">
+						<div class="card-info">
+							<div class="card-info-title">
+								<h3><?= $project['title'] ?></h3>
+								<h4><?= $project['description'] ?></h4>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-			</div>
-			<div class="card ntshow">
-			<div class="card-content">
-				<div class="card-image">
-				<img src="assets/images/card3.jpg">
-				</div>
-				<div class="card-info-wrapper">
-				<div class="card-info">
-					<div class="card-info-title">
-					<h3>Blender Phones</h3>  
-					<h4>These absolutely deserve to exist.</h4>
-					</div>    
-				</div>
-				</div>
-			</div>
-			</div>
-			<div class="card ntshow">
-			<div class="card-content">
-				<div class="card-image">
-				<img src="assets/images/card4.jpg">
-				</div>
-				<div class="card-info-wrapper">
-				<div class="card-info">
-					<div class="card-info-title">
-					<h3>Adios</h3>  
-					<h4>See you...</h4>
-					</div>    
-				</div>
-				</div>
-			</div>
-			</div>
-			<div class="card ntshow">
-			<div class="card-content">
-				<div class="card-image">
-				<img src="assets/images/card5.jpg">
-				</div>
-				<div class="card-info-wrapper">
-				<div class="card-info">
-					<div class="card-info-title">
-					<h3>I mean hello</h3>  
-					<h4>...over here.</h4>
-					</div>    
-				</div>
-				</div>
-			</div>
-			</div>
-			<div class="card ntshow">
-			<div class="card-content">
-				<div class="card-image">
-				<img src="assets/images/card6.jpg">
-				</div>
-				<div class="card-info-wrapper">
-				<div class="card-info">
-					<div class="card-info-title">
-					<h3>Otters</h3>  
-					<h4>Look at me, imma cute lil fella.</h4>
-					</div>    
-				</div>
-				</div>
-			</div>
-			</div>
+			<?php endforeach; ?>
 		</div>
 
-		<a href="#" class="w-fit m-auto flex justify-center button-twitch bg-transparent text-blanc font-semibold hover:text-white py-2 px-4 border border-rose hover:border-transparent rounded mt-8">
-		<p class="z-10">En savoir plus</p>
+		<a href="index.php?action=realisations" class="w-fit m-auto flex justify-center button-twitch bg-transparent text-blanc font-semibold hover:text-white py-2 px-4 border border-rose hover:border-transparent rounded mt-8">
+		<p class="z-10">Voir toutes nos réalisations</p>
 		</a>
 
 <div class="ntshow">
@@ -552,102 +500,29 @@
 </div>
 
 <div class="cards">
+			<?php foreach ($home_articles as $article): ?>
+			<a href="index.php?action=article&id_article=<?= $article['id_article'] ?>">
 			<div class="card ntshow">
-			<div class="card-content">
-				<div class="card-image">
-				<a href="">
-				<img src="assets/images/card7.jpg">
-				</div>
-				</a>
-				<div class="card-info-wrapper">
-				<div class="card-info">
-					<div class="card-info-title">
-					<h3>Apartments</h3>  
-					<h4>Places to be apart. Wait, what?</h4>
-					</div>    
-				</div>
-				</div>
-			</div>
-			</div>
-			<div class="card ntshow">
-			<div class="card-content">
-				<div class="card-image">
-				<img src="assets/images/card8.jpg">
-				</div>
-				<div class="card-info-wrapper">
-				<div class="card-info">
-					<div class="card-info-title">
-					<h3>Unicorns</h3>  
-					<h4>A single corn. Er, I mean horn.</h4>
-					</div>    
-				</div>  
+				<div class="card-content">
+					<div class="card-image">
+						<img src="<?= trim($article['image_head']) ?>" alt="<?= $article['title'] ?>" width="100%">
+					</div>
+					<div class="card-info-wrapper">
+						<div class="card-info">
+							<div class="card-info-title">
+								<h3><?= $article['category'] ?></h3>
+								<h4><?= $article['title'] ?></h4>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-			</div>
-			<div class="card ntshow">
-			<div class="card-content">
-				<div class="card-image">
-				<img src="assets/images/card9.jpg">
-				</div>
-				<div class="card-info-wrapper">
-				<div class="card-info">
-					<div class="card-info-title">
-					<h3>Blender Phones</h3>  
-					<h4>These absolutely deserve to exist.</h4>
-					</div>    
-				</div>
-				</div>
-			</div>
-			</div>
-			<div class="card ntshow">
-			<div class="card-content">
-				<div class="card-image">
-				<img src="assets/images/card10.jpg">
-				</div>
-				<div class="card-info-wrapper">
-				<div class="card-info">
-					<div class="card-info-title">
-					<h3>Adios</h3>  
-					<h4>See you...</h4>
-					</div>    
-				</div>
-				</div>
-			</div>
-			</div>
-			<div class="card ntshow">
-			<div class="card-content">
-				<div class="card-image">
-				<img src="assets/images/card11.jpg">
-				</div>
-				<div class="card-info-wrapper">
-				<div class="card-info">
-					<div class="card-info-title">
-					<h3>I mean hello</h3>  
-					<h4>...over here.</h4>
-					</div>    
-				</div>
-				</div>
-			</div>
-			</div>
-			<div class="card ntshow">
-			<div class="card-content">
-				<div class="card-image">
-				<img src="assets/images/card12.jpg">
-				</div>
-				<div class="card-info-wrapper">
-				<div class="card-info">
-					<div class="card-info-title">
-					<h3>Otters</h3>  
-					<h4>Look at me, imma cute lil fella.</h4>
-					</div>    
-				</div>
-				</div>
-			</div>
-			</div>
+			</a>
+			<?php endforeach; ?>
 		</div>
 
-		<a href="#" class="w-fit m-auto flex justify-center button-twitch bg-transparent text-blanc font-semibold hover:text-white py-2 px-4 border border-rose hover:border-transparent rounded mt-8">
-		<p class="z-10">En savoir plus</p>
+		<a href="index.php?action=articles" class="w-fit m-auto flex justify-center button-twitch bg-transparent text-blanc font-semibold hover:text-white py-2 px-4 border border-rose hover:border-transparent rounded mt-8">
+		<p class="z-10">Voir tous nos articles</p>
 		</a>
 
 
